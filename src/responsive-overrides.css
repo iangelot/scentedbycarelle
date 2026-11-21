@@ -1,0 +1,76 @@
+/*
+ * Reversible tablet/desktop layout layer.
+ * Remove its import from main.jsx to restore the previous responsive behavior.
+ * Layout changes begin at 600px; only the new desktop cutouts are hidden below it.
+ */
+.hero-hands-separated { display: none; }
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .mobile-site { display: flex !important; width: 100%; overflow: clip; }
+  .desktop-notice { display: none !important; }
+
+  .mobile-site > header,
+  .mobile-site > nav {
+    width: 100%;
+  }
+
+  .hero-section { padding-inline: clamp(24px, 5vw, 72px); padding-top: clamp(18px, 3vw, 40px); }
+  .hero-wrap { width: min(100%, 1040px); max-width: 1040px !important; }
+  .hero-stage { width: min(100%, 900px) !important; max-width: 900px !important; aspect-ratio: 402 / 360; }
+  /* Use the supplied independent cutouts on tablets so each arm can bleed to its own edge. */
+  .hero-hands { display: none; }
+  .hero-hands-separated { display: block; position: absolute; height: auto; object-fit: contain; pointer-events: none; user-select: none; }
+  .hero-hand-presenting { z-index: 2; width: 68%; max-width: 800px; left: -11%; bottom: 0; }
+  .hero-hand-reaching { z-index: 3; width: 68%; max-width: 800px; right: -7%; top: 19%; transform: scaleY(.78); transform-origin: top right; }
+  .hero-title { top: 11%; left: 10%; width: 55%; }
+  .hero-title h1 { font-size: clamp(42px, 5.1vw, 66px); line-height: .78; }
+  .hero-eyebrow { font-size: clamp(12px, 1.25vw, 16px); }
+  .hero-signature { right: 13%; bottom: 4%; font-size: clamp(38px, 4.2vw, 58px); }
+  .hero-description { max-width: 620px; margin-inline: auto; font-size: clamp(14px, 1.35vw, 17px); }
+  .hero-primary, .hero-secondary { font-size: 13px; }
+  .hero-primary { padding: 10px 26px; }
+
+  .editorial-section { padding-inline: clamp(24px, 5vw, 72px); }
+  .editorial-collage {
+    width: min(100%, 1000px);
+    max-width: 1000px !important;
+    container-type: inline-size;
+    min-height: 0 !important;
+    aspect-ratio: 100 / 139;
+  }
+  .editorial-man { top: 0; left: 0; width: 49%; height: 58.5cqw !important; }
+  .editorial-line { font-size: clamp(28px, 6.3cqw, 54px); }
+  .editorial-line-one { top: 4.2cqw; right: 1%; width: 48%; }
+  .editorial-billie { top: 34.3cqw; right: 0; width: 59%; height: 58.5cqw !important; }
+  .editorial-bestseller { top: 63.2cqw; left: 3%; width: 43%; font-size: clamp(24px, 5.5cqw, 48px); }
+  .editorial-line-two { top: 101cqw; right: 0; width: 48%; font-size: clamp(25px, 5.4cqw, 48px); }
+  .editorial-pink { top: 77.1cqw; left: 0; width: 49%; height: 56cqw !important; }
+
+  #catalog { padding-top: clamp(40px, 6vw, 76px); }
+  #catalog > .max-w-\[402px\],
+  #catalog > div.max-w-5xl,
+  #catalog > div.max-w-6xl { max-width: 1180px; }
+  #catalog .grid.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2.5vw, 32px); }
+  .product-card { border: 1px solid rgba(37,45,97,.08); }
+  .product-card-body { padding: clamp(14px, 1.8vw, 22px); }
+  .product-card h3 { font-size: clamp(16px, 1.45vw, 21px); }
+
+  .mobile-site > main > section:nth-of-type(4) > div,
+  #delivery > div { max-width: 1180px; }
+  .mobile-site > main > section:nth-of-type(4) > div > div.space-y-4,
+  #delivery > div > div.space-y-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .mobile-site > main > section:nth-of-type(4) > div > div.space-y-4 > *,
+  #delivery > div > div.space-y-3 > * { margin: 0; }
+  .mobile-site > main > section:nth-of-type(4) > div > div.space-y-4 > :last-child { grid-column: 1 / -1; }
+
+  .mobile-site footer > div { max-width: 1180px; }
+  .mobile-site > div.fixed.bottom-4 { max-width: 1180px; }
+}
+
+@media (min-width: 900px) {
+  #catalog .grid.grid-cols-2 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1320px) {
+  #catalog .grid.grid-cols-2 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
