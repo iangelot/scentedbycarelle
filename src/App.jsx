@@ -12,7 +12,6 @@ import ArtisanalStorySection from './components/ArtisanalStorySection';
 import DeliveryInfoSection from './components/DeliveryInfoSection';
 import FloatingWhatsAppBar from './components/FloatingWhatsAppBar';
 import Footer from './components/Footer';
-import IntroSplash from './components/IntroSplash';
 import { PERFUMES_DATA } from './data/perfumes';
 
 const normalizeSearchText = (value = '') => value
@@ -129,7 +128,6 @@ export default function App() {
   return (
     <>
     <div className="mobile-site min-h-screen bg-white text-[#252D61] flex flex-col font-helvetica selection:bg-[#252D61] selection:text-white antialiased">
-      <IntroSplash />
       
       {/* Exact Header matching Figma */}
       <Navbar
