@@ -1273,32 +1273,7 @@ export const UPLOADED_PERFUMES = [
     "bestFor": "",
     "isBestseller": false
   },
-  {    "id": "catalog-060-showergel",
-    "name": "Shower gel",
-    "brand": "",
-    "collection": "designer",
-    "collectionLabel": "",
-    "gender": "unisex",
-    "genderLabel": "Unisex",
-    "concentration": "",
-    "price": 4000,
-    "sizes": [
-      "As pictured"
-    ],
-    "priceOptions": {
-      "As pictured": 4000
-    },
-    "image": "/images/catalog/060-showergel.jpg",
-    "tagline": "",
-    "description": "",
-    "topNotes": [],
-    "heartNotes": [],
-    "baseNotes": [],
-    "longevity": "",
-    "sillage": "",
-    "bestFor": "",
-    "isBestseller": false
-  },
+
   {    "id": "catalog-061-soupline",
     "name": "Soupline",
     "brand": "",
