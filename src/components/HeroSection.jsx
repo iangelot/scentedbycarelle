@@ -40,7 +40,7 @@ export default function HeroSection({ onShopNow, onExploreCollection }) {
         <p className="hero-description mx-auto mt-3 max-w-[320px] text-center">
           Discover refined fragrance made for unforgettable moments. Each scent is blended with dedicated notes, timeless character, and a touch of quiet luxury.
         </p>
-        <div className="mt-4 flex items-center justify-center gap-5">
+        <div className="hero-actions mt-4 flex items-center justify-center gap-5">
           <button onClick={onShopNow} className="hero-primary">Shop Now</button>
           <a href="/collection" className="hero-secondary group">
             Explore Collection <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
