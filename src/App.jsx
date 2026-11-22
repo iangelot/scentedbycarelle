@@ -24,7 +24,6 @@ export default function App() {
   const [genderFilter, setGenderFilter] = useState('all');
   const [scentFamilyFilter, setScentFamilyFilter] = useState('all');
   const [sortBy, setSortBy] = useState('recommended');
-  const [isCatalogExpanded, setIsCatalogExpanded] = useState(false);
 
   const [selectedPerfumeForModal, setSelectedPerfumeForModal] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -115,8 +114,7 @@ export default function App() {
   }, [genderFilter, scentFamilyFilter, searchTerm, sortBy]);
 
   const hasCatalogRefinement = genderFilter !== 'all' || scentFamilyFilter !== 'all' || searchTerm.trim() !== '';
-  const showAllCatalogItems = isCatalogExpanded || hasCatalogRefinement;
-  const visiblePerfumes = showAllCatalogItems ? filteredPerfumes : filteredPerfumes.slice(0, 8);
+  const visiblePerfumes = hasCatalogRefinement ? filteredPerfumes : filteredPerfumes.slice(0, 8);
 
   const scrollToCatalog = () => {
     const el = document.getElementById('catalog');
@@ -209,13 +207,12 @@ export default function App() {
             )}
             {filteredPerfumes.length > 8 && !hasCatalogRefinement && (
               <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setIsCatalogExpanded((expanded) => !expanded)}
+                <a
+                  href="/collection"
                   className="rounded-full border border-[#252D61] px-6 py-2.5 text-[11px] font-medium text-[#252D61] transition-colors hover:bg-[#252D61] hover:text-white"
                 >
-                  {isCatalogExpanded ? 'Show featured perfumes' : 'See all collection'}
-                </button>
+                  See All Collection
+                </a>
               </div>
             )}
           </div>
