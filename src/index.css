@@ -276,3 +276,65 @@ body {
   }
 }
 
+
+
+/* Hero entrance reveal — motion only; all existing layout and image geometry stays unchanged.
+   The 4.2s offset lets the intro splash finish before the hero begins to reveal. */
+@keyframes hero-editorial-rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes hero-cutout-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-flower-blue {
+  animation-delay: 4.2s;
+}
+
+.hero-flower-pink {
+  animation-delay: 4.42s;
+}
+
+.hero-title {
+  opacity: 0;
+  animation: hero-editorial-rise 760ms cubic-bezier(.22, 1, .36, 1) 4.58s both;
+}
+
+.hero-hands {
+  animation-delay: 4.78s;
+}
+
+.hero-hands-separated {
+  opacity: 0;
+  animation: hero-cutout-fade 760ms cubic-bezier(.22, 1, .36, 1) 4.98s both;
+}
+
+.hero-signature {
+  opacity: 0;
+  animation: hero-editorial-rise 700ms cubic-bezier(.22, 1, .36, 1) 5.12s both;
+}
+
+.hero-description {
+  opacity: 0;
+  animation: hero-editorial-rise 700ms cubic-bezier(.22, 1, .36, 1) 5.34s both;
+}
+
+.hero-actions {
+  opacity: 0;
+  animation: hero-editorial-rise 700ms cubic-bezier(.22, 1, .36, 1) 5.52s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title,
+  .hero-hands-separated,
+  .hero-signature,
+  .hero-description,
+  .hero-actions {
+    opacity: 1;
+    animation: none !important;
+    transform: none;
+  }
+}
