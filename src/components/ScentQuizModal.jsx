@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconClose, IconArrowRight, IconWhatsApp, IconStar } from './Icons';
 import { PERFUMES_DATA, formatFCFA, createSingleProductWhatsAppLink } from '../data/perfumes';
 
 export default function ScentQuizModal({ isOpen, onClose, onSelectPerfume }) {
-  if (!isOpen) return null;
-
   const [step, setStep] = useState(1);
   const [answers, setAnswers] = useState({ gender: '', vibe: '', collectionType: '' });
   const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+      setAnswers({ gender: '', vibe: '', collectionType: '' });
+      setResult(null);
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
 
   const handleSelectOption = (key, value) => {
     const updated = { ...answers, [key]: value };
@@ -21,32 +29,18 @@ export default function ScentQuizModal({ isOpen, onClose, onSelectPerfume }) {
   };
 
   const computeMatch = (finalAnswers) => {
-    let candidates = [...PERFUMES_DATA];
-
-    if (finalAnswers.gender && finalAnswers.gender !== 'any') {
-      candidates = candidates.filter(p => p.gender === finalAnswers.gender || p.gender === 'unisex');
-    }
-
-    if (finalAnswers.collectionType === 'designer') {
-      const ds = candidates.filter(p => p.collection === 'designer');
-      if (ds.length > 0) candidates = ds;
-    }
-
-    if (finalAnswers.vibe === 'gourmand') {
-      const match = candidates.find(p => ['uploaded-choco-musk', 'uploaded-eclair', 'uploaded-la-vie-est-belle'].includes(p.id));
-      if (match) candidates = [match, ...candidates];
-    } else if (finalAnswers.vibe === 'regal') {
-      const match = candidates.find(p => ['uploaded-angham', 'uploaded-valentino-uomo'].includes(p.id));
-      if (match) candidates = [match, ...candidates];
-    } else if (finalAnswers.vibe === 'woody') {
-      const match = candidates.find(p => ['uploaded-asad', 'uploaded-hugo-boss', 'uploaded-9pm'].includes(p.id));
-      if (match) candidates = [match, ...candidates];
-    } else if (finalAnswers.vibe === 'fresh') {
-      const match = candidates.find(p => ['uploaded-allure', 'uploaded-dg-2', 'uploaded-dolce-gabana'].includes(p.id));
-      if (match) candidates = [match, ...candidates];
-    }
-
-    setResult(candidates[0] || PERFUMES_DATA[0]);
+    const terms = {
+      gourmand: ['vanilla', 'gourmand', 'choco', 'chocolate', 'caramel', 'eclair', 'la vie', 'eilish', 'sweet'],
+      regal: ['oud', 'rose', 'angham', 'valentino', 'oud mood', 'royal', 'amber'],
+      woody: ['wood', 'woody', 'asad', 'vetiver', 'spice', 'hugo', '9pm', 'oud'],
+      fresh: ['fresh', 'citrus', 'bergamot', 'allure', 'dolce', 'marine', 'chloe', 'chloé']
+    }[finalAnswers.vibe] || [];
+    const eligible = PERFUMES_DATA.filter((p) => !finalAnswers.gender || finalAnswers.gender === 'any' || p.gender === finalAnswers.gender || p.gender === 'unisex');
+    const ranked = eligible.map((p) => {
+      const searchable = [p.name, p.brand, p.tagline, p.description, ...(p.topNotes || []), ...(p.heartNotes || []), ...(p.baseNotes || [])].join(' ').toLowerCase();
+      return { perfume: p, score: terms.reduce((score, term) => score + (searchable.includes(term) ? 1 : 0), 0) };
+    }).sort((a, b) => b.score - a.score || a.perfume.price - b.perfume.price);
+    setResult(ranked[0]?.perfume || PERFUMES_DATA[0]);
     setStep(4);
   };
 
